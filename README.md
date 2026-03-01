@@ -20,6 +20,12 @@ connect sys/\$ORACLE_PASSWORD@localhost:1521/pdb1 as sysdba
 EOF
 ```
 
+Host: localhost
+Port: 1521
+Service name: pdb1
+Username: hr
+Password: see your .env file
+
 ### Variables
 
 | Variable        | Description               |
