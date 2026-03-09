@@ -12,6 +12,16 @@ docker compose --profile garage up -d
 
 This will create a single node S3 instance, with 1 bucket and 1 file in that bucket.
 
+## Postgresql
+
+Start the Postgresql database:
+
+```bash
+docker compose --profile postgresql up -d
+```
+
+This will create a single node Postgresql instance, with 1 database and 1 table in that database you will find the [Pagila](https://github.com/devrimgunduz/pagila) dataset.
+
 ## Oracle
 
 Start the Oracle Free database with the HR schema installed:

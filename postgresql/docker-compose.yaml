@@ -12,11 +12,14 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgresql_data:/var/lib/postgresql/data
+      - ./01-pagila-schema.sql:/docker-entrypoint-initdb.d/01-pagila-schema.sql # Mount schema init script
+      - ./02-pagila-data.sql:/docker-entrypoint-initdb.d/02-pagila-data.sql # Mount data init script
     networks:
       - postgresql_net
 
 volumes:
   postgresql_data:
+
 
 networks:
   postgresql_net:
