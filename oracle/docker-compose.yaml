@@ -19,6 +19,8 @@ services:
   init-oracle:
     image: alpine:latest
     container_name: init-oracle
+    profiles:
+      - oracle
     depends_on:
       oracle:
         condition: service_healthy

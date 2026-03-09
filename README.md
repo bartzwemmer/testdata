@@ -2,6 +2,16 @@
 
 A repo with dockerized test databases and datasets. Each database has its own docker compose profile to be able to start and stop the database independently.
 
+## Garage
+
+Start the Garage database:
+
+```bash
+docker compose --profile garage up -d
+```
+
+This will create a single node S3 instance, with 1 bucket and 1 file in that bucket.
+
 ## Oracle
 
 Start the Oracle Free database with the HR schema installed:
