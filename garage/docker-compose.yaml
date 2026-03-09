@@ -1,0 +1,53 @@
+services:
+  garage:
+    image: dxflrs/garage:v2.2.0
+    container_name: garage
+    profiles:
+      - garage
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - ./meta:/var/lib/garage/meta
+      - ./data:/var/lib/garage/data
+    restart: unless-stopped
+    ports:
+      - 3900:3900
+      - 3901:3901
+      - 3902:3902
+      - 3903:3903
+    healthcheck:
+      test: ["CMD", "/garage", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  init-garage:
+    image: alpine:latest
+    container_name: init-garage
+    profiles:
+      - garage
+    depends_on:
+      garage:
+        condition: service_healthy
+    env_file:
+      - ./webui.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./init_garage.sh:/init_garage.sh
+      - ../data:/data
+    command: sh /init_garage.sh
+
+  webui:
+    image: khairul169/garage-webui:latest
+    container_name: garage-webui
+    profiles:
+      - garage
+    restart: unless-stopped
+    env_file:
+      - ./webui.env
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+    ports:
+      - 3909:3909
+    environment:
+      API_BASE_URL: "http://garage:3903"
+      S3_ENDPOINT_URL: "http://garage:3900"
