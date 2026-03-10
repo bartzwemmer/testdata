@@ -1,6 +1,7 @@
-# testdata
+# Test data
 
-A repo with dockerized test databases and datasets. Each database has its own docker compose profile to be able to start and stop the database independently.
+As a data platform engineer, I often need to test code on non-production data. Not all datasets are available on all platforms. This repo provides a collection of datasets that can be used to test code on different platforms.
+Each dataset is available in multiple formats and sizes to allow for testing on different platforms.
 
 ## Garage
 
@@ -12,6 +13,13 @@ docker compose --profile garage up -d
 
 This will create a single node S3 instance, with 1 bucket and 1 file in that bucket.
 
+### Variables
+
+| Variable      | Description                |
+| ------------- | -------------------------- |
+| S3_ACCESS_KEY | Access key for the S3 user |
+| S3_SECRET_KEY | Secret key for the S3 user |
+
 ## Postgresql
 
 Start the Postgresql database:
@@ -21,6 +29,16 @@ docker compose --profile postgresql up -d
 ```
 
 This will create a single node Postgresql instance, with 1 database and 1 table in that database you will find the [Pagila](https://github.com/devrimgunduz/pagila) dataset.
+
+### Variables
+
+| Variable      | Description            |
+| ------------- | ---------------------- |
+| POSTGRES_USER | Postgres user name     |
+| POSTGRES_PW   | Postgres user password |
+| POSTGRES_DB   | Database name          |
+| PGADMIN_MAIL  | PGAdmin email          |
+| PGADMIN_PW    | PGAdmin password       |
 
 ## Oracle
 
