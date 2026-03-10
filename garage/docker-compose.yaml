@@ -15,7 +15,7 @@ services:
       - 3902:3902
       - 3903:3903
     healthcheck:
-      test: ["CMD", "/garage", "status"]
+      test: [ "CMD", "/garage", "status" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -29,7 +29,7 @@ services:
       garage:
         condition: service_healthy
     env_file:
-      - ./webui.env
+      - ../.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./init_garage.sh:/init_garage.sh
@@ -43,7 +43,7 @@ services:
       - garage
     restart: unless-stopped
     env_file:
-      - ./webui.env
+      - ../.env
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
     ports:
