@@ -3,6 +3,23 @@
 As a data platform engineer, I often need to test code on non-production data. Not all datasets are available on all platforms. This repo provides a collection of datasets that can be used to test code on different platforms.
 Each dataset is available in multiple formats and sizes to allow for testing on different platforms.
 
+## DuckDB
+
+Start the DuckDB database:
+
+```bash
+docker compose --profile duckdb up -d
+```
+
+This will create a DuckDB instance, with 1 database and 1 table in that database you will find the house price from Garage S3 dataset.
+
+### Variables
+
+| Variable      | Description                |
+| ------------- | -------------------------- |
+| S3_ACCESS_KEY | Access key for the S3 user |
+| S3_SECRET_KEY | Secret key for the S3 user |
+
 ## Garage
 
 Start the Garage database:
