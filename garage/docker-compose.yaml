@@ -3,6 +3,7 @@ services:
     image: dxflrs/garage:v2.2.0
     container_name: garage
     profiles:
+      - duckdb
       - garage
     volumes:
       - ./garage.toml:/etc/garage.toml
@@ -24,6 +25,7 @@ services:
     image: alpine:latest
     container_name: init-garage
     profiles:
+      - duckdb
       - garage
     depends_on:
       garage:
@@ -40,6 +42,7 @@ services:
     image: khairul169/garage-webui:latest
     container_name: garage-webui
     profiles:
+      - duckdb
       - garage
     restart: unless-stopped
     env_file:
