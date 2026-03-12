@@ -1,3 +1,5 @@
 .env
 garage/data
 garage/meta
+duckdb/duckdb.db
+duckdb/data

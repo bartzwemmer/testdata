@@ -1,0 +1,29 @@
+services:
+  duckdb:
+    image: duckdb/duckdb:1.5.0
+    container_name: duckdb
+    profiles:
+      - duckdb
+    depends_on:
+      - garage
+    env_file:
+      - ../.env
+    ports:
+      - "4213:8080"
+    volumes:
+      - duckdb_data:/data
+      - ./init_duckdb.sql:/scripts/init_duckdb.sql
+    entrypoint: [ "/duckdb", "/data/duckdb.db", "-init", "/scripts/init_duckdb.sql" ]
+    stdin_open: true
+    tty: true
+
+  duckdb-ui:
+    image: alpine/socat
+    profiles:
+      - duckdb
+    network_mode: service:duckdb
+    restart: always
+    command: TCP4-LISTEN:8080,fork,reuseaddr TCP6-CONNECT:[::1]:4213
+
+volumes:
+  duckdb_data:
