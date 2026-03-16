@@ -15,8 +15,19 @@ CREATE SECRET s3_secret (
 );
 
 -- Create table in DuckDB referencing S3 parquet
-CREATE TABLE IF NOT EXISTS house_price AS
+CREATE SCHEMA IF NOT EXISTS test_data;
+CREATE TABLE IF NOT EXISTS test_data.house_price AS
 SELECT * FROM read_parquet('s3://test-data/house-price.parquet');
+
+CREATE SCHEMA IF NOT EXISTS simpsons;
+CREATE TABLE IF NOT EXISTS simpsons.characters AS
+SELECT * FROM read_parquet('s3://simpsons/characters.parquet');
+CREATE TABLE IF NOT EXISTS simpsons.episodes AS
+SELECT * FROM read_parquet('s3://simpsons/episodes.parquet');
+CREATE TABLE IF NOT EXISTS simpsons.locations AS
+SELECT * FROM read_parquet('s3://simpsons/locations.parquet');
+CREATE TABLE IF NOT EXISTS simpsons.script_lines AS
+SELECT * FROM read_parquet('s3://simpsons/script_lines.parquet');
 
 -- Start the UI
 CALL start_ui();

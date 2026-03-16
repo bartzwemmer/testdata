@@ -5,7 +5,7 @@ services:
     profiles:
       - duckdb
     depends_on:
-      - garage
+      - init-garage
     env_file:
       - ../.env
     ports:
@@ -20,6 +20,8 @@ services:
   duckdb-ui:
     image: alpine/socat
     profiles:
+      - duckdb
+    depends_on:
       - duckdb
     network_mode: service:duckdb
     restart: always
