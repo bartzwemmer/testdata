@@ -27,7 +27,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./scripts:/opt/oracle/scripts
-    entrypoint: [ "sh", "-c", "apk add --no-cache docker-cli && docker exec oracle sqlplus -s / as sysdba @/opt/oracle/scripts/hr_install.sql helloworld \"\" YES" ]
+    entrypoint: [ "sh", "-c", "apk add --no-cache docker-cli && docker exec oracle sqlplus -s / as sysdba @/opt/oracle/scripts/setup.sql ${ORACLE_PASSWORD} \"\" YES" ]
     networks:
       - oracle_net
 
