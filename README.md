@@ -3,6 +3,52 @@
 As a data platform engineer, I often need to test code on non-production data. Not all datasets are available on all platforms. This repo provides a collection of datasets that can be used to test code on different platforms.
 Each dataset is available in multiple formats and sizes to allow for testing on different platforms.
 
+## Simpsons dataset
+
+The same Simpsons dataset is available in multiple formats and sizes to allow for testing on different platforms.
+
+```mermaid
+erDiagram
+    EPISODES ||--o{ SCRIPT_LINES : "contains"
+    CHARACTERS ||--o{ SCRIPT_LINES : "speaks"
+    LOCATIONS ||--o{ SCRIPT_LINES : "takes place at"
+
+    EPISODES {
+        int id
+        string title
+        int season
+        int number_in_season
+        int number_in_series
+        date original_air_date
+        float imdb_rating
+        int imdb_votes
+    }
+
+    CHARACTERS {
+        int id
+        string name
+        string normalized_name
+        string sex
+    }
+
+    LOCATIONS {
+        int id
+        string name
+        string normalized_name
+    }
+
+    SCRIPT_LINES {
+        int id
+        int episode_id
+        int character_id
+        int location_id
+        int number
+        string raw_text
+        string spoken_words
+        int word_count
+    }
+```
+
 ## DuckDB
 
 Start the DuckDB database:
