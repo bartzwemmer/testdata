@@ -16,6 +16,16 @@ services:
     entrypoint: [ "/duckdb", "/data/duckdb.db", "-init", "/scripts/init_duckdb.sql" ]
     stdin_open: true
     tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1gb
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /data/duckdb.db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   duckdb-ui:
     image: alpine/socat
@@ -26,6 +36,16 @@ services:
     network_mode: service:duckdb
     restart: always
     command: TCP4-LISTEN:8080,fork,reuseaddr TCP6-CONNECT:[::1]:4213
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 128mb
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   duckdb_data:

@@ -9,6 +9,11 @@ services:
       - ./garage.toml:/etc/garage.toml
       - ./meta:/var/lib/garage/meta
       - ./data:/var/lib/garage/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1gb
     restart: unless-stopped
     ports:
       - 3900:3900 # S3
@@ -54,3 +59,13 @@ services:
     environment:
       API_BASE_URL: "http://garage:3903"
       S3_ENDPOINT_URL: "http://garage:3900"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3909/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
