@@ -15,6 +15,7 @@ erDiagram
 
     EPISODES {
         int id
+        int episode_id
         string title
         int season
         int number_in_season
@@ -26,6 +27,7 @@ erDiagram
 
     CHARACTERS {
         int id
+        int character_id
         string name
         string normalized_name
         string sex
@@ -33,12 +35,14 @@ erDiagram
 
     LOCATIONS {
         int id
+        int location_id
         string name
         string normalized_name
     }
 
     SCRIPT_LINES {
         int id
+        int sl_id
         int episode_id
         int character_id
         int location_id

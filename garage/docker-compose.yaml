@@ -5,6 +5,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - all
     volumes:
       - ./garage.toml:/etc/garage.toml
       - ./meta:/var/lib/garage/meta
@@ -32,6 +33,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - all
     depends_on:
       garage:
         condition: service_healthy
@@ -49,6 +51,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - all
     restart: unless-stopped
     env_file:
       - ../.env
@@ -65,7 +68,7 @@ services:
           cpus: '0.2'
           memory: 256mb
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3909/ || exit 1"]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3909/ || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5

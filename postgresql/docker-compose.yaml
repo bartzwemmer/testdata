@@ -2,8 +2,11 @@ services:
   postgresql:
     profiles:
       - postgresql
-    image: postgres:18.3
+      - all
+    image: postgres:17-alpine
     container_name: postgresql
+    env_file:
+      - ../.env
     ports:
       - "5432:5432"
     environment:
@@ -22,7 +25,7 @@ services:
           cpus: '1.0'
           memory: 2gb
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
