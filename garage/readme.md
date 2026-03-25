@@ -1,13 +1,26 @@
 # Garage
-
-Garage is an S3 compatible storage. This compose starts a 1 node cluster, with a web ui on localhost:3909. The init script creates a bucket and a file in that bucket.
-
-## Ports
-
-| Port | Description      |
-| ---- | ---------------- |
-| 3900 | S3 API server    |
-| 3902 | Web server       |
-| 3903 | Admin API server |
-| 3904 | K2V API server   |
-| 3909 | Web UI           |
+ 
+ Garage is an open-source distributed S3-compatible object store.
+ 
+ ## Usage
+ 
+ ```bash
+ docker compose --profile garage up -d
+ ```
+ 
+ ## Technical Overview
+ 
+ This configuration starts a 1-node cluster. An initialization script runs automatically to create the necessary buckets and upload sample data.
+ 
+ ## Ports
+ 
+ | Port | Description |
+ | :--- | :--- |
+ | **3900** | S3 API Endpoint |
+ | **3902** | Web Server |
+ | **3903** | Admin API |
+ | **3909** | **Web UI** ([http://localhost:3909](http://localhost:3909)) |
+ 
+ ## Admin Web UI
+ 
+ The Web UI is pre-configured to connect to the Admin API. Use the credentials defined in your `.env` file for S3 access.

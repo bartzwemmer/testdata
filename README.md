@@ -1,11 +1,11 @@
-# Test data
+# Test Data project
 
 As a data platform engineer, I often need to test code on non-production data. Not all datasets are available on all platforms. This repo provides a collection of datasets that can be used to test code on different platforms.
 Each dataset is available in multiple formats and sizes to allow for testing on different platforms.
 
-## Simpsons dataset
+## 🎬 Simpsons Dataset
 
-The same Simpsons dataset is available in multiple formats and sizes to allow for testing on different platforms.
+The Simpsons dataset is available across all platforms.
 
 ```mermaid
 erDiagram
@@ -15,6 +15,7 @@ erDiagram
 
     EPISODES {
         int id
+        int episode_id
         string title
         int season
         int number_in_season
@@ -26,6 +27,7 @@ erDiagram
 
     CHARACTERS {
         int id
+        int character_id
         string name
         string normalized_name
         string sex
@@ -33,12 +35,14 @@ erDiagram
 
     LOCATIONS {
         int id
+        int location_id
         string name
         string normalized_name
     }
 
     SCRIPT_LINES {
         int id
+        int sl_id
         int episode_id
         int character_id
         int location_id
@@ -49,86 +53,38 @@ erDiagram
     }
 ```
 
-## DuckDB
+## 🛠️ Quick Start
 
-Start the DuckDB database:
+| Service        | Command                                     | Documentation                                  |
+| :------------- | :------------------------------------------ | :--------------------------------------------- |
+| **DuckDB**     | `docker compose --profile duckdb up -d`     | [duckdb/README.md](./duckdb/README.md)         |
+| **Garage**     | `docker compose --profile garage up -d`     | [garage/README.md](./garage/README.md)         |
+| **PostgreSQL** | `docker compose --profile postgresql up -d` | [postgresql/README.md](./postgresql/README.md) |
+| **Oracle**     | `docker compose --profile oracle up -d`     | [oracle/README.md](./oracle/README.md)         |
 
-```bash
-docker compose --profile duckdb up -d
-```
+## 🔐 Environment Variables (`.env`)
 
-This will create a DuckDB instance, with 1 database and 1 table in that database you will find the house price from Garage S3 dataset.
+Copy `.env.example` or create a `.env` file in the root directory with the following variables:
 
-### Variables
+### S3 / Garage
 
-| Variable      | Description                |
-| ------------- | -------------------------- |
-| S3_ACCESS_KEY | Access key for the S3 user |
-| S3_SECRET_KEY | Secret key for the S3 user |
+| Variable        | Description                | Default   |
+| :-------------- | :------------------------- | :-------- |
+| `S3_ACCESS_KEY` | Access key for the S3 user | `GK35...` |
+| `S3_SECRET_KEY` | Secret key for the S3 user | `7d37...` |
 
-## Garage
+### PostgreSQL
 
-Start the Garage database:
+| Variable            | Description            | Default          |
+| :------------------ | :--------------------- | :--------------- |
+| `POSTGRES_USER`     | Admin username         | `postgres`       |
+| `POSTGRES_PASSWORD` | Admin password         | `new_password`   |
+| `POSTGRES_DB`       | Default database name  | `postgres`       |
+| `PGADMIN_MAIL`      | PGAdmin login email    | `your@email.com` |
+| `PGADMIN_PW`        | PGAdmin login password | `changeit`       |
 
-```bash
-docker compose --profile garage up -d
-```
+### Oracle
 
-This will create a single node S3 instance, with 1 bucket and 1 file in that bucket.
-
-### Variables
-
-| Variable      | Description                |
-| ------------- | -------------------------- |
-| S3_ACCESS_KEY | Access key for the S3 user |
-| S3_SECRET_KEY | Secret key for the S3 user |
-
-## Postgresql
-
-Start the Postgresql database:
-
-```bash
-docker compose --profile postgresql up -d
-```
-
-This will create a single node Postgresql instance, with 1 database and 1 table in that database you will find the [Pagila](https://github.com/devrimgunduz/pagila) dataset.
-
-### Variables
-
-| Variable      | Description            |
-| ------------- | ---------------------- |
-| POSTGRES_USER | Postgres user name     |
-| POSTGRES_PW   | Postgres user password |
-| POSTGRES_DB   | Database name          |
-| PGADMIN_MAIL  | PGAdmin email          |
-| PGADMIN_PW    | PGAdmin password       |
-
-## Oracle
-
-Start the Oracle Free database with the HR schema installed:
-
-```bash
-docker compose --profile oracle up -d
-```
-
-The source of the HR schema is located at https://github.com/oracle-samples/db-sample-schemas/tree/main/human_resources.
-
-Connect to the database:
-
-```bash
-docker compose --profile oracle exec oracle sqlcl /nolog <<EOF
-connect sys/\$ORACLE_PASSWORD@localhost:1521/pdb1 as sysdba
-EOF
-```
-
-Host: localhost
-Port: 1521
-Service name: pdb1
-Username: hr
-Password: see your .env file
-
-### Variables
-
-| Variable        | Description               |
-| --------------- | ------------------------- |
-| ORACLE_PASSWORD | Password for the SYS user |
+| Variable          | Description                               | Default      |
+| :---------------- | :---------------------------------------- | :----------- |
+| `ORACLE_PASSWORD` | Password for the `SYS` and `SYSTEM` users | `helloworld` |

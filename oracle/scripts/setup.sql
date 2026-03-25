@@ -13,6 +13,7 @@ ALTER SESSION SET CONTAINER = PDB1;
 PROMPT Installing Simpson's Schema...
 @@01-simpsons-schema-oracle.sql "&pass"
 PROMPT Loading Simpson's Data...
+SET DEFINE OFF
 @@02-simpsons-data-oracle.sql
 
 -- Restore DEFINE after data script (which sets it to OFF)
