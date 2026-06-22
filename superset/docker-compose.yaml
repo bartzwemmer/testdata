@@ -9,6 +9,8 @@ x-superset-common: &superset-common
     - ../.env
   environment:
     SUPERSET_SECRET_KEY: your-secret-key-change-this-in-production
+    SUPERSET_ADMIN_USERNAME: ${SUPERSET_ADMIN_USERNAME:-admin}
+    SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:-admin}
     DATABASE_HOST: postgres
     DATABASE_PORT: 5432
     DATABASE_USER: superset
@@ -60,7 +62,7 @@ services:
       bash -c "
         superset db upgrade &&
         superset init &&
-        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@example.com --password admin &&        
+        superset fab create-admin --username "$${SUPERSET_ADMIN_USERNAME}" --firstname Admin --lastname User --email admin@example.com --password "$${SUPERSET_ADMIN_PASSWORD}" &&        
         echo 'Superset initialized successfully' &&
         curl https://install.duckdb.org | sh &&
         rm -f /tmp/depot.db &&
