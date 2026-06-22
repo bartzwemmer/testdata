@@ -3,3 +3,4 @@ include:
   - ./garage/docker-compose.yaml
   - ./oracle/docker-compose.yaml
   - ./postgresql/docker-compose.yaml
+  - ./superset/docker-compose.yaml

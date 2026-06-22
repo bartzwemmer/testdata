@@ -4,9 +4,11 @@ services:
     container_name: duckdb
     profiles:
       - duckdb
+      - superset
       - all
     depends_on:
-      - init-garage
+      init-garage:
+        condition: service_completed_successfully
     env_file:
       - ../.env
     ports:
@@ -32,6 +34,7 @@ services:
     image: alpine/socat
     profiles:
       - duckdb
+      - superset
       - all
     depends_on:
       - duckdb

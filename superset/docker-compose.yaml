@@ -1,0 +1,89 @@
+x-superset-common: &superset-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  profiles:
+    - superset
+    - all
+  env_file:
+    - ../.env
+  environment:
+    SUPERSET_SECRET_KEY: your-secret-key-change-this-in-production
+    DATABASE_HOST: postgres
+    DATABASE_PORT: 5432
+    DATABASE_USER: superset
+    DATABASE_PASSWORD: superset
+    DATABASE_DB: superset
+    REDIS_HOST: redis
+    REDIS_PORT: 6379
+    SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://superset:superset@postgres:5432/superset
+    CELERY_BROKER_URL: redis://redis:6379/0
+    CELERY_RESULT_BACKEND: redis://redis:6379/0
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+    duckdb-ui:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+      POSTGRES_DB: superset
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superset"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  superset:
+    <<: *superset-common
+    ports:
+      - "8088:8088"
+    command: >
+      bash -c "
+        superset db upgrade &&
+        superset init &&
+        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@example.com --password admin &&        
+        echo 'Superset initialized successfully' &&
+        curl https://install.duckdb.org | sh &&
+        rm -f /tmp/depot.db &&
+        /app/superset_home/.duckdb/cli/latest/duckdb /tmp/depot.db < /app/init_database.sql &&
+        superset set-database-uri --database-name 'DuckDB' --uri 'duckdb:////tmp/depot.db' &&
+        echo 'DuckDB connection initialized successfully' &&
+        gunicorn --bind 0.0.0.0:8088 --workers 2 --timeout 120 'superset.app:create_app()'
+      "
+    restart: unless-stopped
+    volumes:
+      - ./init_database.sql:/app/init_database.sql
+      - ./requirements.txt:/app/docker/requirements-local.txt
+
+  superset-worker:
+    <<: *superset-common
+    command: celery --app=superset.tasks.celery_app:app worker --pool=prefork --concurrency=2
+    restart: unless-stopped
+
+  superset-beat:
+    <<: *superset-common
+    command: celery --app=superset.tasks.celery_app:app beat --schedule=/tmp/celerybeat-schedule
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:

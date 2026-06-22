@@ -5,6 +5,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - superset
       - all
     volumes:
       - ./garage.toml:/etc/garage.toml
@@ -33,6 +34,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - superset
       - all
     depends_on:
       garage:
