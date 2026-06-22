@@ -1,0 +1,29 @@
+curl $'http://localhost:8088/api/v1/database/1/schemas/?q=(force:\041f)' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:152.0) Gecko/20100101 Firefox/152.0' \
+  -H 'Accept: application/json' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Accept-Encoding: gzip, deflate, br, zstd' \
+  -H 'Referer: http://localhost:8088/dataset/add/' \
+  -H 'X-CSRFToken: ImNiNGJmZmY2ZjQ1ZGI4MzYzYTg1MjM3ZjNjOTRmNDY4Y2ZjMzdmNWYi.ajj-5w.ECsrbbBc0H2sF09PsBY1QY2dP3E' \
+  -H 'Connection: keep-alive' \
+  -H 'Cookie: csrftoken=CW0ow9LTwhANbqlrtxvhVSC3l9v62iqk; cids=1; _xsrf=2|08eb1bc3|9a1c0ba72b0a8fbb4f495361ac097b80|1767000727; _token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiOWY3MjVhMmUwZTJmNDY0NGIwNWI3OTIzOTY4ZGQ3NzQiLCJpc3MiOltdLCJhdWQiOiJhcGFjaGUtYWlyZmxvdyIsIm5iZiI6MTc2OTYxMTEwMCwiZXhwIjoxNzY5Njk3NTAwLCJpYXQiOjE3Njk2MTExMDB9.L35lpg5bWfy4q93TkjRQuTcDkY0I-FLOG1MLOM-AzknQwwtDr7oh_y8N6rzycGIegDQHmCQnDcOeLHisJyKPjg; session=.eJwljkuOAzEIRO_idRbG-INzmRZgUKJEE6k7WY1y96E1yxL1qPebNt_tuKXre__YJW33la5JGbuQyJQlMEo2WEUYB3HOJbMVBMEMLN4bcXXo01zylN4zaCUUw4HGhdZYoGDkjmjxVJs39rhVHFWNBcVtnlPD2gKhKHNNIfI5bP-3gYh67L69Xw_7OfWkirt3r20JYUemVnA46qxeO6lrpObBPV_KTwsmwO8ffCJF3w.ajj6og.ayi9I-bkECFdmuZE_LqX7rDCMXI; x_mtok=nB5DNPaXZWKWYvTzQ' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: same-origin' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'DNT: 1' \
+  -H 'Sec-GPC: 1' \
+  -H 'Priority: u=0'
+
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: gunicorn
+Date: Mon, 22 Jun 2026 09:22:50 GMT
+Connection: close
+Content-Type: application/json; charset=utf-8
+Content-Length: 60
+Permissions-Policy: browsing-topics=()
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Security-Policy: base-uri 'self'; default-src 'self'; img-src 'self' blob: data: https://apachesuperset.gateway.scarf.sh https://static.scarf.sh/ ows.terrestris.de https://cdn.document360.io; worker-src 'self' blob:; connect-src 'self' https://api.mapbox.com https://events.mapbox.com https://tile.openstreetmap.org https://tile.osm.ch; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'strict-dynamic' 'nonce-nAQrfAYH168xJYao_AHOLp7q1rwbqsxT'
+Referrer-Policy: strict-origin-when-cross-origin
+Vary: Accept-Encoding, Cookie
+Access-Control-Allow-Origin: https://tile.openstreetmap.org

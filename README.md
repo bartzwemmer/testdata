@@ -61,6 +61,7 @@ erDiagram
 | **Garage**     | `docker compose --profile garage up -d`     | [garage/README.md](./garage/README.md)         |
 | **PostgreSQL** | `docker compose --profile postgresql up -d` | [postgresql/README.md](./postgresql/README.md) |
 | **Oracle**     | `docker compose --profile oracle up -d`     | [oracle/README.md](./oracle/README.md)         |
+| **Superset**   | `docker compose --profile superset up -d`   | [superset/readme.md](./superset/readme.md)     |
 
 ## 🔐 Environment Variables (`.env`)
 
@@ -88,3 +89,11 @@ Copy `.env.example` or create a `.env` file in the root directory with the follo
 | Variable          | Description                               | Default      |
 | :---------------- | :---------------------------------------- | :----------- |
 | `ORACLE_PASSWORD` | Password for the `SYS` and `SYSTEM` users | `helloworld` |
+
+### Superset
+
+| Variable                  | Description                   | Default |
+| :------------------------ | :---------------------------- | :------ |
+| `SUPERSET_ADMIN_USERNAME` | Superset admin login username | `admin` |
+| `SUPERSET_ADMIN_PASSWORD` | Superset admin login password | `admin` |
+
