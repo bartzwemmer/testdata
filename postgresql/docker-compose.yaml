@@ -3,7 +3,7 @@ services:
     profiles:
       - postgresql
       - all
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     container_name: postgresql
     env_file:
       - ../.env
