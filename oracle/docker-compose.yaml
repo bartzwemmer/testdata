@@ -2,6 +2,7 @@ services:
   oracle:
     profiles:
       - oracle
+      - data
       - all
     image: container-registry.oracle.com/database/free:23.26.1.0-lite
     container_name: oracle
@@ -32,6 +33,7 @@ services:
     container_name: init-oracle
     profiles:
       - oracle
+      - data
       - all
     depends_on:
       oracle:

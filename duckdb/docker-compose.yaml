@@ -5,6 +5,7 @@ services:
     profiles:
       - duckdb
       - superset
+      - data
       - all
     depends_on:
       init-garage:

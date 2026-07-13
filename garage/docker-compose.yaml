@@ -6,6 +6,7 @@ services:
       - duckdb
       - garage
       - superset
+      - data
       - all
     volumes:
       - ./garage.toml:/etc/garage.toml
@@ -35,6 +36,7 @@ services:
       - duckdb
       - garage
       - superset
+      - data
       - all
     depends_on:
       garage:
@@ -53,6 +55,7 @@ services:
     profiles:
       - duckdb
       - garage
+      - data
       - all
     restart: unless-stopped
     env_file:
